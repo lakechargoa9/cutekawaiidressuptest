@@ -1,0 +1,42 @@
+<button onclick="showCategory('background')">Place</button>
+
+<script>
+    // 1. Update the state to include a background
+    const state = {
+        hair: { id: 'pigtails', color: '#FFB7C5', style: 'pigtails' },
+        outfit: { id: 'dress', color: '#BDE0FE', style: 'dress' },
+        eyes: { id: 'sparkle', color: '#555', style: 'sparkle' },
+        background: { id: 'pink_room', color: '#FFF0F5', secondary: '#FFD1DC' } // Default
+    };
+
+    // 2. Add backgrounds to your library
+    const library = {
+        hair: [/* ... same as before ... */],
+        outfit: [/* ... same as before ... */],
+        eyes: [/* ... same as before ... */],
+        background: [
+            { id: 'pink_room', color: '#FFF0F5', secondary: '#FFD1DC', label: 'Pink Room' },
+            { id: 'mint_cafe', color: '#E0F2F1', secondary: '#B2DFDB', label: 'Mint Cafe' },
+            { id: 'night_sky', color: '#2C3E50', secondary: '#4CA1AF', label: 'Starry Night' },
+            { id: 'sunset', color: '#ff9a9e', secondary: '#fad0c4', label: 'Sunset' }
+        ]
+    };
+
+    function drawCharacter() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // --- DRAW BACKGROUND ---
+        const bg = state.background;
+        let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, bg.color);
+        gradient.addColorStop(1, bg.secondary);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Add special details for specific backgrounds
+        if (bg.id === 'night_sky') {
+            ctx.fillStyle = "white";
+            for(let i=0; i<20; i++) { // Draw tiny stars
+                ctx.beginPath();
+                ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 1.5, 0, Math.PI*2);
+                ctx
